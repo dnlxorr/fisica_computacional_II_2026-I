@@ -10,6 +10,8 @@ v = np.array([-5,2,7,6],float)
 N = len(v)
 # Eliminacion Gaussiana
 
+
+
 for fila in range(N):
     # Aplicar partial pivoting
     # Buscar el elemento más grande de la columna

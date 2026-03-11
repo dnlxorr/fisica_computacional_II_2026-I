@@ -16,6 +16,8 @@ b_original = b.copy()
 
 N= len(b)
 
+
+
 inicio= time.perf_counter()
 
 

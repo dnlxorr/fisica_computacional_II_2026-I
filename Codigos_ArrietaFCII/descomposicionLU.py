@@ -61,10 +61,8 @@ for i in range(N):
     y[i] = b[i] - suma
 
 
-
 # sustitucion inversa
 # Ux = y
-
 
 x = np.zeros(N)
 
