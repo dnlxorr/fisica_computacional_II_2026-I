@@ -8,7 +8,7 @@ A = np.array([[0,2,4,3],
 v = np.array([-5,2,7,6],float)
 
 N = len(v)
-# Eliminaciòn Gaussiana
+# Eliminacion Gaussiana
 
 for fila in range(N):
     # Aplicar partial pivoting

@@ -23,7 +23,7 @@ inicio= time.perf_counter()
 
 print("matriz oiginal")
 print(A.copy())
-print("\n vector terminos independientes")
+print("\n vector de terminos independientes")
 print(b.copy())
 
 # ELIMINACIÓN GAUSSIANA

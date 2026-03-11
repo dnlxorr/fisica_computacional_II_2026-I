@@ -46,11 +46,11 @@ for i in range(N):
 
 
 
-# SUSTITUCION HACIA ADELANTE
+# sustitucion hacia adelante
 # Ly = b
 
 
-y = np.zeros(N)
+y =np.zeros(N)
 
 for i in range(N):
 
@@ -86,7 +86,7 @@ print(U)
 print("\nVector y:")
 print(y)
 
-print("\nSolucion x:")
+print("\nSolucion sistema de ecuaciones x:")
 print(x)
 
 fin = time.perf_counter()
