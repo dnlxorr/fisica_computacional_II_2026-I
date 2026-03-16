@@ -1,65 +1,30 @@
-use ndarray::{array,Array1,Array2,s};
+mod gauss;
+mod descomposicion_lu;
+use ndarray::{array, Array1, Array2, s};
 use std::time::{Duration, Instant};
 fn main() {
-    let mut a: Array2<f64> = array![
-        [3.0,4.0,5.0,2.0,3.0],
-        [2.0,5.0,10.0,11.7,2.0],
-        [-4.0,4.0,-3.0,3.9,3.0],
-        [2.0,6.0,-7.0,9.0,10.0],
-        [3.0,5.0,7.0,8.0,5.0]
+    let A = array![
+        [4.0,-2.0,1.0],
+        [20.0,-7.0,12.0],
+        [-8.0,13.0,17.0]
     ];
 
-    let mut v: Array1<f64> = array![3.0,8.0,5.0,3.5,2.0];
+    let (L_matrices, U, L_inv) = descomposicion_lu::descomposicion_lu(A.clone());
 
-    let n = v.len();
-
-    // Eliminción Gaussiana
-    let start=Instant::now();
-    for fila in 0..n{
-        let div = a[[fila,fila]];
-
-        {
-            let mut row= a.slice_mut(s![fila,..]);
-            row /= div;
-        }
-
-        v[fila] /= div;
-
-        for fila_inf in (fila+1)..n{
-            let mult = a[[fila_inf,fila]];
-
-            let fila_pivote = a.row(fila).to_owned();
-            let mut fila_obj = a.row_mut(fila_inf);
-
-            fila_obj -= &(fila_pivote*mult);
-
-            v[fila_inf] -= mult*v[fila];
-        }
-
+    for (i, L) in L_matrices.iter().enumerate() {
+        println!("L {}", i);
+        println!("{:?}", L);
     }
 
-    println!("Matriz triangular:");
-    println!("{:?}",a);
+    println!("\nMatriz U:");
+    println!("{:?}", U);
 
-    // Backsustitution
+    println!("\nMatriz L inv:");
+    println!("{:?}", L_inv);
 
-    // MAnera de crear una matriz vacía
-    let mut x = Array1::<f64>::zeros(n);
+    let A_rec = L_inv.dot(&U);
 
-    for fila in (0..n).rev(){
-        x[fila] = v[fila];
+    println!("\n{:?}", A_rec);
 
-        for i in (fila+1)..n{
-            x[fila] -= a[[fila,i]]*x[i];
-        }
-    }
-
-    let duration=start.elapsed();
-    println!("Orden de iteración");
-    println!("{:?}",(0..n).rev().collect::<Vec<_>>());
-
-    print!("Solución:");
-    println!("{:?}",x);
-    println!("{:?}",duration);
 }
 
