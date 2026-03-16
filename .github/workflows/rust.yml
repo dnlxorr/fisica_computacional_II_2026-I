@@ -28,31 +28,40 @@ jobs:
     
     - name: Build all student projects
       run: |
-        # Loop through any directory that matches the pattern: StudentName/rust
+        # Tell Bash to ignore case and not crash if no folders exist yet
+        shopt -s nocaseglob
+        shopt -s nullglob
+        
         for cargo_file in */rust/Cargo.toml; do
-          # Extract the directory path
-          rust_dir=$(dirname "$cargo_file")
-          
-          echo "========================================"
-          echo "🔨 Building $rust_dir"
-          echo "========================================"
-          
-          # Navigate in, build, and navigate back out
-          cd "$rust_dir"
-          cargo build --verbose
-          cd -
+          # Double-check that the file actually exists
+          if [ -f "$cargo_file" ]; then
+            rust_dir=$(dirname "$cargo_file")
+            
+            echo "========================================"
+            echo "🔨 Building $rust_dir"
+            echo "========================================"
+            
+            cd "$rust_dir"
+            cargo build --verbose
+            cd -
+          fi
         done
 
     - name: Run tests for all student projects
       run: |
+        shopt -s nocaseglob
+        shopt -s nullglob
+        
         for cargo_file in */rust/Cargo.toml; do
-          rust_dir=$(dirname "$cargo_file")
-          
-          echo "========================================"
-          echo "🧪 Testing $rust_dir"
-          echo "========================================"
-          
-          cd "$rust_dir"
-          cargo test --verbose
-          cd -
+          if [ -f "$cargo_file" ]; then
+            rust_dir=$(dirname "$cargo_file")
+            
+            echo "========================================"
+            echo "🧪 Testing $rust_dir"
+            echo "========================================"
+            
+            cd "$rust_dir"
+            cargo test --verbose
+            cd -
+          fi
         done
