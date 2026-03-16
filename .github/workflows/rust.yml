@@ -1,0 +1,67 @@
+name: Rust Checks
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    # Optional: Cache dependencies to speed up the action runs
+    - name: Cache Cargo registry
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    
+    - name: Build all student projects
+      run: |
+        # Tell Bash to ignore case and not crash if no folders exist yet
+        shopt -s nocaseglob
+        shopt -s nullglob
+        
+        for cargo_file in */rust/Cargo.toml; do
+          # Double-check that the file actually exists
+          if [ -f "$cargo_file" ]; then
+            rust_dir=$(dirname "$cargo_file")
+            
+            echo "========================================"
+            echo "🔨 Building $rust_dir"
+            echo "========================================"
+            
+            cd "$rust_dir"
+            cargo build --verbose
+            cd -
+          fi
+        done
+
+    - name: Run tests for all student projects
+      run: |
+        shopt -s nocaseglob
+        shopt -s nullglob
+        
+        for cargo_file in */rust/Cargo.toml; do
+          if [ -f "$cargo_file" ]; then
+            rust_dir=$(dirname "$cargo_file")
+            
+            echo "========================================"
+            echo "🧪 Testing $rust_dir"
+            echo "========================================"
+            
+            cd "$rust_dir"
+            cargo test --verbose
+            cd -
+          fi
+        done
