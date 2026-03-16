@@ -1,4 +1,4 @@
-name: Rust
+name: Rust Checks
 
 on:
   push:
@@ -10,13 +10,49 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+    
+    # Optional: Cache dependencies to speed up the action runs
+    - name: Cache Cargo registry
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    
+    - name: Build all student projects
+      run: |
+        # Loop through any directory that matches the pattern: StudentName/rust
+        for cargo_file in */rust/Cargo.toml; do
+          # Extract the directory path
+          rust_dir=$(dirname "$cargo_file")
+          
+          echo "========================================"
+          echo "🔨 Building $rust_dir"
+          echo "========================================"
+          
+          # Navigate in, build, and navigate back out
+          cd "$rust_dir"
+          cargo build --verbose
+          cd -
+        done
+
+    - name: Run tests for all student projects
+      run: |
+        for cargo_file in */rust/Cargo.toml; do
+          rust_dir=$(dirname "$cargo_file")
+          
+          echo "========================================"
+          echo "🧪 Testing $rust_dir"
+          echo "========================================"
+          
+          cd "$rust_dir"
+          cargo test --verbose
+          cd -
+        done
