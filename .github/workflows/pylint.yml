@@ -25,5 +25,10 @@ jobs:
         
     - name: Analysing the code with pylint
       run: |
-        # Using --errors-only so it only fails on actual bugs, not formatting quirks
-        pylint --errors-only $(git ls-files '*.py')
+        # Tell Git to stop escaping special characters like 'ó'
+        git config --global core.quotePath false
+        
+        # Run Pylint:
+        # --errors-only: Fails only on real bugs, not formatting
+        # --disable=import-error: Stops Pylint from panicking if numpy/scipy aren't installed
+        pylint --errors-only --disable=import-error $(git ls-files '*.py')
