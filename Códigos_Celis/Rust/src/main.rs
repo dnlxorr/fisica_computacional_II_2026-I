@@ -1,4 +1,3 @@
-mod gauss;
 mod descomposicion_lu;
 mod autovalores_autovectores;
 

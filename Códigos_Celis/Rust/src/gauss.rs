@@ -1,7 +1,7 @@
 use std::time::Instant;
-use ndarray::{array, s, Array1, Array2};
+use ndarray::{s, Array1, Array2};
 
-pub fn gauss(mut a: Array2<f64>, mut v:Array1<f64>){
+pub fn gauss(mut a: Array2<f64>, mut v:Array1<f64>)->(Array1<f64>){
 
     let n = v.len();
 
@@ -45,7 +45,8 @@ pub fn gauss(mut a: Array2<f64>, mut v:Array1<f64>){
             x[fila] -= a[[fila,i]]*x[i];
         }
     }
-
+    
+    
     let duration=start.elapsed();
     println!("Orden de iteración");
     println!("{:?}",(0..n).rev().collect::<Vec<_>>());
@@ -53,4 +54,6 @@ pub fn gauss(mut a: Array2<f64>, mut v:Array1<f64>){
     print!("Solución:");
     println!("{:?}",x);
     println!("{:?}",duration);
+
+    (x)
 }
