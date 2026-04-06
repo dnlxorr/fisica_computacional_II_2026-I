@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/EliminacionGaussiana/target" />
       <excludeFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/target" />
     </content>
-    <orderEntry type="jdk" jdkName="PythonProject" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (entorno_fisica)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
