@@ -1,5 +1,9 @@
 mod descomposicion_lu;
 mod autovalores_autovectores;
+mod busqueda_binaria;
+mod metodo_sobrerelajacion;
+
+mod metodo_sobrerelajacion_ed;
 
 use ndarray::{array, Array1, Array2, s};
 use std::time::{Duration, Instant};
