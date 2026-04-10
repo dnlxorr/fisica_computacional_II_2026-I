@@ -1,46 +1,52 @@
 import numpy as np
+import math
 
-from Codigos_ArrietaFCII.Python_Arrieta.metodoRelajacion1Variable import iteraciones
+
+def g(x):
+     return np.array([(x[1]**2 + x[2] + 1)/3,
+                      (x[0] + x[2]**2 + 1)/3,
+                      (x[0] + x[1] + 1)/3
+                      ])
 
 # Relajacion multivariable
-def relajacion(F, x0, tol=1e-6, max_iter=1000):
 
-    # Convertir a array de numpy
-    x = np.array(x0, dtype=float)
+#def g(x):
+ #   return np.array([np.sqrt((x[1] + 5)/2),
+  #                   np.sqrt(x[0] + 1)
+ #   ])
 
-    for k in range(max_iter):
-        x_new = np.array(F(x), dtype=float)
+##implementamos la iteracion con relajacion
 
-        # Cálculo del error (norma infinita)
-        error = np.linalg.norm(x_new - x, ord=np.inf)
+def relajacion(g, x0, lam=0.5, tol = 1e-8, max_iter=1000):
+    x= np.array(x0, dtype=float)
 
-        # Verificar convergencia
-        if error < tol:
-            return x_new, k + 1, True
 
+    for i in range(max_iter):
+        x_new = x + lam * (g(x) - x)
+
+        print(f"Iter {i}: x = {x_new[0]:.6f}, y = {x_new[1]:.6f}, z = {x_new[2]:.6}")
+
+        #criterio de convergencia
+        if np.linalg.norm(x_new - x) < tol:
+            print(f"convergio en {i} iteraciones")
+            return x_new,i
         x = x_new
 
-    # Si no converge
-    return x, max_iter, False
 
-def sistema_3var(x_vec):
-    x, y, z = x_vec
-
-    x_new = (y + z) / 3
-    y_new = (x + z) / 3
-    z_new = (x + y) / 3
-
-    return [x_new, y_new, z_new]
+    print("no convergio")
+    return x, max_iter
 
 
-print("\n=== Sistema 3 variables ===")
+x0= np.array([0.3, 0.3, 0.3]) #punto inicial
 
-x0 = [1.0, 2.0, 3.0]
+solucion, it = relajacion(g, x0, lam=0.5)
 
-sol, it, conv = relajacion(sistema_3var, x0)
+print(f"Solución ≈ (x = {solucion[0]:.6f}, y = {solucion[1]:.6f}, z = {solucion[2]:.6}) en {it} iteraciones")
 
-print("Solución:", sol)
-print("Iteraciones:", it)
-print("Convergió:", conv)
+
+
+
+
+
 
 
