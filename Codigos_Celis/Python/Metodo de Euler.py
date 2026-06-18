@@ -7,7 +7,7 @@ def f(x,t):
 
 a = 0.0 # Comienzo del intervalo
 b = 30.0 # FIn del intervalo
-N = 1000 # NUmero de pasos
+N = 50 # NUmero de pasos
 h = (b-a)/N # Tamaño del paso
 x = 0.0 # Condición incial
 

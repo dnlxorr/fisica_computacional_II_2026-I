@@ -2,10 +2,10 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/EliminacionGaussiana/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/EliminacionGaussiana/target" />
-      <excludeFolder url="file://$MODULE_DIR$/Códigos_Celis/Rust/target" />
+      <sourceFolder url="file://$MODULE_DIR$/Codigos_Celis/Rust/EliminacionGaussiana/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Codigos_Celis/Rust/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/Codigos_Celis/Rust/EliminacionGaussiana/target" />
+      <excludeFolder url="file://$MODULE_DIR$/Codigos_Celis/Rust/target" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (entorno_fisica)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
